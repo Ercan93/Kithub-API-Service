@@ -4,7 +4,7 @@ const Book = require('../models/BookSchema')
 
 
 /* GET book with book name. */
-router.get('/:book_name', function (req, res, next) {
+router.get('/:book_name', (req, res) => {
     let bookName = req.params.book_name
     bookName = bookName.replace("_", " ")
     Book.find({ "properties.bookName": bookName })
