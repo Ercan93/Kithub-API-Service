@@ -17,7 +17,7 @@ router.get('/:book_name', (req, res) => {
 });
 
 /* GET book with book Id. */
-router.get('/:book_id', (req, res) => {
+router.get('/Id/:book_id', (req, res) => {
     Book.findById(req.params.book_id)
         .then(data => res.json(data))
         .catch(err => res.json(err))
