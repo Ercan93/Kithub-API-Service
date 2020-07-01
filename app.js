@@ -8,6 +8,7 @@ var indexRouter = require("./routes/index");
 var booksRouter = require("./routes/book");
 var authorRouter = require("./routes/author");
 var categoryRouter = require("./routes/category");
+var verifyToken = require("./middleware/verify-token");
 
 var app = express();
 
