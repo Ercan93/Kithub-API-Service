@@ -17,7 +17,7 @@ const db = require("./helper/db");
 db();
 app.use(logger("dev"));
 app.use(express.json());
-app.use(express.urlencoded({ extended: false }));
+app.use(express.urlencoded({ extended: true }));
 app.use(cookieParser());
 app.use(express.static(path.join(__dirname, "public")));
 
@@ -26,5 +26,7 @@ app.use("/api", verifyToken);
 app.use("/api/books", booksRouter);
 app.use("/api/author", authorRouter);
 app.use("/api/category", categoryRouter);
+
+app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
 
 module.exports = app;
