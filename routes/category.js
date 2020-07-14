@@ -18,12 +18,14 @@ router.get("/:category_name", (req, res) => {
 });
 
 /* GET Sort categories books by parameter values. */
-subRouter.get("/:sort_param/:orderBy", (req, res) => {
+subRouter.get("/:sort_param=:orderBy", (req, res) => {
   let categoryName = req.params.category_name;
   categoryName = categoryName.replace("_", " ");
   let sort_param = req.params.sort_param;
+
   let orderBy = req.params.orderBy;
-  orderBy = parseInt(orderBy);
+  if (orderBy == "asc") orderBy = 1;
+  else if (orderBy == "desc") orderBy = -1;
 
   if (
     ["readCount", "likeCount", "pageNum"].includes(sort_param) &&
