@@ -3,14 +3,21 @@ const router = express.Router();
 const Book = require("../models/BookSchema");
 
 const subRouter = express.Router({ mergeParams: true });
-router.use("/:category_name/sort", subRouter);
+router.use("/:categories_name/sort", subRouter);
 
-/* GET category books with category name */
-router.get("/:category_name", (req, res) => {
-  let categoryName = req.params.category_name;
-  categoryName = categoryName.replace("_", " ");
+/* GET categories books with categories name */
+router.get("/:categories_name", (req, res) => {
+  let categories_name = req.params.categories_name;
+  categories_name = categories_name.split("&");
+
+  categories_name.forEach((item, index) => {
+    categories_name[index] = item.replace("_", " ");
+  });
+
   Book.find({
-    "properties.Category": { $in: [categoryName, " " + categoryName] },
+    "properties.Category": {
+      $all: categories_name,
+    },
   })
     .limit(30)
     .then((data) => res.json(data))
