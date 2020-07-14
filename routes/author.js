@@ -14,12 +14,14 @@ router.get("/:author_name", (req, res) => {
     .catch((err) => res.json(err));
 });
 /* GET Sort author's books by parameter values. */
-subRouter.get("/:sort_param/:orderBy", (req, res) => {
+subRouter.get("/:sort_param=:orderBy", (req, res) => {
   let authorName = req.params.author_name;
   authorName = authorName.replace("_", " ");
   let sort_param = req.params.sort_param;
+
   let orderBy = req.params.orderBy;
-  orderBy = parseInt(orderBy);
+  if (orderBy == "asc") orderBy = 1;
+  else if (orderBy == "desc") orderBy = -1;
 
   if (
     ["readCount", "likeCount", "pageNum"].includes(sort_param) &&
