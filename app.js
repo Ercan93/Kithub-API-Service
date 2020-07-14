@@ -5,9 +5,9 @@ var logger = require("morgan");
 require("dotenv").config();
 
 var indexRouter = require("./routes/index");
-var booksRouter = require("./routes/book");
+var booksRouter = require("./routes/books");
 var authorRouter = require("./routes/author");
-var categoryRouter = require("./routes/category");
+var categoriesRouter = require("./routes/categories");
 var verifyToken = require("./middleware/verify-token");
 
 var app = express();
@@ -25,6 +25,6 @@ app.use("/", indexRouter);
 app.use("/api", verifyToken);
 app.use("/api/books", booksRouter);
 app.use("/api/author", authorRouter);
-app.use("/api/category", categoryRouter);
+app.use("/api/categories", categoriesRouter);
 
 module.exports = app;
