@@ -27,9 +27,9 @@ router.post("/register", (req, res, next) => {
 });
 
 router.post("/authenticate", (req, res) => {
-  const { username, password } = req.body;
+  const { email, password } = req.body;
 
-  User.findOne({ username }, (err, user) => {
+  User.findOne({ email }, (err, user) => {
     if (err) throw err;
 
     if (!user) {
@@ -45,7 +45,7 @@ router.post("/authenticate", (req, res) => {
             message: "Authentication failed, wrong password.",
           });
         } else {
-          const payload = { username };
+          const payload = { email };
           const token = jwt.sign(payload, process.env.api_crypt_key);
           res.json({
             status: true,
