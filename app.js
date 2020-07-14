@@ -27,6 +27,4 @@ app.use("/api/books", booksRouter);
 app.use("/api/author", authorRouter);
 app.use("/api/category", categoryRouter);
 
-app.listen(process.env.PORT || 3000, () => console.log("Server is running..."));
-
 module.exports = app;
