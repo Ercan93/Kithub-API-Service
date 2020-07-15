@@ -11,12 +11,13 @@ router.get("/", function (req, res, next) {
 });
 
 /* POST User register method */
-router.post("/register", (req, res, next) => {
-  const { email, username, password } = req.body;
+router.post("/register/email=:email&password=:password", (req, res, next) => {
+  const email = req.params.email;
+  const password = req.params.password;
+
   bcrypt.hash(password, 10).then((hash) => {
     const user = new User({
       email,
-      username,
       password: hash,
     });
     user
@@ -26,8 +27,9 @@ router.post("/register", (req, res, next) => {
   });
 });
 
-router.post("/authenticate", (req, res) => {
-  const { email, password } = req.body;
+router.post("/authenticate/email=:email&password=:password", (req, res) => {
+  const email = req.params.email;
+  const password = req.params.password;
 
   User.findOne({ email }, (err, user) => {
     if (err) throw err;
