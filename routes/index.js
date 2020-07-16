@@ -11,21 +11,26 @@ router.get("/", function (req, res, next) {
 });
 
 /* POST User register method */
-router.post("/register/email=:email&password=:password", (req, res, next) => {
-  const email = req.params.email;
-  const password = req.params.password;
+router.post(
+  "/register/username=:username&email=:email&password=:password",
+  (req, res, next) => {
+    const username = req.params.username;
+    const email = req.params.email;
+    const password = req.params.password;
 
-  bcrypt.hash(password, 10).then((hash) => {
-    const user = new User({
-      email,
-      password: hash,
+    bcrypt.hash(password, 10).then((hash) => {
+      const user = new User({
+        username,
+        email,
+        password: hash,
+      });
+      user
+        .save()
+        .then((data) => res.json(data))
+        .catch((err) => res.json(err));
     });
-    user
-      .save()
-      .then((data) => res.json(data))
-      .catch((err) => res.json(err));
-  });
-});
+  }
+);
 
 router.post("/authenticate/email=:email&password=:password", (req, res) => {
   const email = req.params.email;
